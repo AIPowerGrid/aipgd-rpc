@@ -1,0 +1,37 @@
+{
+  "name": "aipgd-rpc",
+  "description": "AIPG Client Library to connect to AIPGD via RPC",
+  "version": "1.0.0",
+  "author": {
+    "name": "halfaipg",
+    "email": ""
+  },
+  "keywords": [
+    "aipg",
+    "rpc"
+  ],
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/AIPowerGrid/aipgd-rpc"
+  },
+  "license": "MIT",
+  "main": "lib/index.js",
+  "scripts": {
+    "test": "node_modules/.bin/mocha test -R spec",
+    "coverage": "node_modules/.bin/istanbul cover node_modules/.bin/_mocha -- --recursive"
+  },
+  "devDependencies": {
+    "chai": "^1.10.0",
+    "coveralls": "^2.11.2",
+    "istanbul": "^0.3.5",
+    "mocha": "^2.1.0",
+    "sinon": "^1.12.2"
+  },
+  "dependencies": {
+    "async": "2.6.2"
+  },
+  "bugs": {
+    "url": "https://github.com/AIPowerGrid/aipgd-rpc/issues"
+  },
+  "homepage": "https://github.com/AIPowerGrid/aipgd-rpc"
+}
