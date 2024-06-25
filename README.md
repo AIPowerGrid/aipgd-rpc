@@ -10,7 +10,7 @@ INSTALL:
 pip install aipgrpc
 ```
 
-## Setting Up Ravend (Linux)
+## Setting Up AIPGD (Linux)
 
 go to your `.aipg` folder, add a `aipg.conf` file if there is not one already, in that file add:
 
