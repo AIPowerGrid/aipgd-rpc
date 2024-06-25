@@ -4,11 +4,6 @@ Crazy simple AI Power Grid RPC library, designed to work with all versions of AI
 
 *"I have seen many libraries, this one... is pretty average" - Joe*
 
-INSTALL:
-
-```
-pip install aipgrpc
-```
 
 ## Setting Up AIPGD (Linux)
 
