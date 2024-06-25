@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Wrap/Unwrap wAIPG</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 20px;
+            padding: 0;
+            background-color: #f4f4f4;
+            color: #333;
+        }
+        h1 {
+            color: #444;
+        }
+        form {
+            background: #fff;
+            padding: 20px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            margin-bottom: 20px;
+        }
+        input[type="text"], input[type="submit"] {
+            padding: 10px;
+            margin: 5px 0;
+            display: block;
+            width: 95%;
+        }
+        input[type="submit"] {
+            background-color: #5C67F2;
+            color: white;
+            border: none;
+            cursor: pointer;
+        }
+        input[type="submit"]:hover {
+            background-color: #5058E5;
+        }
+        .messages {
+            background: #D9EDF7;
+            color: #31708F;
+            border: 1px solid #BCE8F1;
+            padding: 10px;
+            margin: 20px 0;
+            border-radius: 4px;
+        }
+        /* Specific styles based on message type */
+        .success {
+            background-color: #4CAF50; /* Green */
+            border-left: 6px solid #46A049;
+        }
+
+        .info {
+            background-color: #2196F3; /* Blue */
+            border-left: 6px solid #0b7dda;
+        }
+
+        .warning {
+            background-color: #ff9800; /* Orange */
+            border-left: 6px solid #e68900;
+        }
+
+        .error {
+            background-color: #f44336; /* Red */
+            border-left: 6px solid #d63031;
+        }
+    </style>
+    <script src="https://cdn.socket.io/4.0.0/socket.io.min.js"></script>
+    <script>
+        var socket = io();  // Connecting to the server
+
+        socket.on('connect', function() {
+            console.log('Connected!');
+        });
+
+        socket.on('message', function(data) {
+            var node = document.createElement("div");
+            node.innerHTML = data.text;
+            document.getElementById('messages').appendChild(node);
+        });
+
+        socket.on('error', function(data) {
+            var node = document.createElement("div");
+            node.innerHTML = "Error: " + data.text;
+            node.style.color = 'red';
+            document.getElementById('messages').appendChild(node);
+        });
+
+        function submitWrap() {
+            var amount = document.getElementById('wrap_amount').value;
+            var eth_address = document.getElementById('eth_address').value;
+            socket.emit('wrap', {amount: wrap_amount, eth_address: eth_address});
+        }
+
+        function submitUnwrap() {
+            var amount = document.getElementById('unwrap_amount').value;
+            var eth_address = document.getElementById('unwrap_eth_address').value;
+            var aipg_address = document.getElementById('aipg_address').value;
+            var tx_hash = document.getElementById('tx_hash').value;
+            socket.emit('unwrap', {amount: amount, eth_address: eth_address, aipg_address: aipg_address, tx_hash: tx_hash});
+        }
+    </script>
+</head>
+<body>
+    <h1>Wrap/Unwrap Operations</h1>
+    <!-- Display messages -->
+    <div id="messages"></div>
+
+    <h1>Wrap AIPG</h1>
+    <form onsubmit="submitWrap(); return false;">
+        <p>Use this form below to start the minting process of your wAIPG to an ETH address on your wallet!</p>
+        <p>Be sure to have your AIPG wallet loaded and synced!</p>
+        <br>
+        <p><label>Amount of AIPG that you want to wrap:
+        <input type="text" name="wrap_amount" placeholder="Amount (in AIPG)"></label></p>
+        <br>
+        <p><label>The Ethereum Address in your wallet you want the wAIPG minted to:
+        <input type="text" name="eth_address" placeholder="Your Ethereum Address"></label><p>
+        <br>
+        <input type="submit" value="Wrap">
+    </form>
+
+    <h1>Unwrap wAIPG</h1>
+    <form onsubmit="submitUnwrap(); return false;">
+        <p>The information in this form will allow for the processing of your wAIPG unwrap, remember to use wei currency formatting ...desired_amount * 10^18, ex. 39900000000000000000 translates to 39.9 wAIPG... when you submit your amount to be burned!")</p>
+        <p>To begin the unwrapping of wAIPG, please initiate the transfer of the desired amount of wAIPG you want to unwrap to the admin address for unwrapping, remember this value is in wei currency format.")</p>
+        <p>Admin Ethereum Address: 0xC70149D8203D5f88dB62163CE29bc138a7b6F54F</p>
+        <p>Once you have done this, you can then fill out the form below!</p>
+        <br>
+        <p><label>Amount to Unwrap (in wei):
+        <input type="text" name="unwrap_amount" placeholder="################## wAIPG"></label></p>
+        <br>
+        <p><label>Your Ethereum Address that was holding wAIPG before sending wAIPG to the Admin Address:
+        <input type="text" name="eth_address" placeholder="Your Ethereum Address Here"></label></p>
+        <br>
+        <p><label>Your AIPG Address to return your unwrapped AIPG to:
+        <input type="text" name="aipg_address" placeholder="Your AIPG Address Here"></label></p>
+        <br>
+        <p><label>Your transaction hash in hexidecimal format from sending the wAIPG from your ETH address above to the Admin ETH address above:
+	<input type="text" name="tx_hash" placeholder="Your TX hash in hexidecimal form from Yourself --> Admin"></label><p>
+        <br>
+        <input type="submit" value="Unwrap">
+    </form>
+
+</body>
+</html>

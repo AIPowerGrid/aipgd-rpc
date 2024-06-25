@@ -1,0 +1,25 @@
+This is the raw transaction hash for the unwrap: b'(\xd2{\x17\xfa\xbdgO\xe3\x1dA\x86\x83\xd2\xdfy{\x82`d\xa3\xb2\xed\x14\xfa\x01\xbbx\\\xb0k\x19'
+This is the hexidecimal transaction hash for the unwrap: b'(\xd2{\x17\xfa\xbdgO\xe3\x1dA\x86\x83\xd2\xdfy{\x82`d\xa3\xb2\xed\x14\xfa\x01\xbbx\\\xb0k\x19'
+
+Fix the above^^^
+
+ganache-cli in another window
+
+sudo rm -rf build/
+
+truffle init --reset in second window (this window applies beyond to third window)
+
+N
+N
+N
+N
+
+truffle compile
+
+truffle migrate
+
+cd aipgrpc
+
+python3 AIPG_Wrap.py
+python3 AIPG_Unwrap.py
+python3 wAIPG_transfer.py in a third window
